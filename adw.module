@@ -1,0 +1,82 @@
+<?php
+/*
+ * Implements hook_theme()
+ */
+function adw_theme()
+{
+	return array(
+		'adw_block' => array(
+			'variables' => array('downloads' => NULL, 'date' => NULL),
+			'template' => 'adw-block',
+		),
+	);
+}
+
+/*
+ * Implements hook_block_info()
+ */
+function adw_block_info()
+{
+	$blocks = array();
+	$blocks['adw_block'] = array(
+		'info' => 'Apps Download Widget Block',
+		'cache' => DRUPAL_CACHE_PER_PAGE | DRUPAL_CACHE_PER_ROLE,
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_configure()
+ */
+function adw_block_configure($delta = '')
+{
+	$form = array();
+
+  $form['adw_downloads'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of Downloads'),
+    '#default_value' => variable_get('adw_downloads', ''),
+    '#required' => true,
+    '#weight' => 0,
+  );
+
+  $form['adw_date'] = array(
+    '#type' => 'date',
+    '#title' => t('Date'),
+    '#default_value' => variable_get('adw_date', ''),
+    '#required' => true,
+    '#weight' => 10,
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function adw_block_save($delta = '', $edit = array()) 
+{
+	variable_set('adw_downloads', $edit['adw_downloads']);
+	variable_set('adw_date', $edit['adw_date']);
+}
+
+
+/*
+ * Implements hook_block_view()
+ */
+function adw_block_view($delta)
+{
+	$block = array();
+	
+	$downloads = variable_get('adw_downloads', '');
+	$date = variable_get('adw_date', '');
+	$date = 'since '.date("m/d/y", mktime(0,0,0,$date['month'], $date['day'], $date['year']));
+	
+	drupal_add_css(drupal_get_path('module', 'adw') . '/css/adw.css');
+
+	$block['subject'] = NULL;
+	$block['content'] = theme('adw_block', array('downloads' => $downloads, 'date' => $date));
+	return $block;
+}
+
+

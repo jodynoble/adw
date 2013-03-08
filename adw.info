@@ -1,0 +1,13 @@
+name = Apps Downloaded Widget
+description = Adds a widget to display how many times apps have been downloaded
+package = Other
+core = 7.x
+files[] = adw.install
+files[] = adw.module
+
+configure = admin/config/content/adw
+
+version = "7.x-1.0"
+core = "7.x"
+project = "adw"
+

@@ -1,0 +1,26 @@
+#block-adw-adw-block
+{
+	width: 155px;
+	height: 124px;
+	background: url('../images/widget.png');
+	float: right;
+	margin-top: -120px;
+}
+
+.adw-downloads 
+{
+	text-align: center;
+	font-size: 18px;
+	color: #FF0;
+	position: relative;
+	top: 5px;
+}
+
+.adw-date
+{
+	text-align: center;
+	color: #FFF;
+	position: relative;
+	top: 45px;
+	font-size: 11px;
+}
